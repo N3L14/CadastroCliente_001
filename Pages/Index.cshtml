@@ -1,0 +1,42 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container ">
+
+    <div class="row">
+        <div class="col-md-6 d-flex flex-column justify-content-center">
+            <div name="formulario" class="justify-content-center">
+
+                <div class="text-center">
+                    <h1 class="h3 mb-3 font-weight-normal">Login de Usuário</h1>
+                </div>
+
+                <form method="post" class="align-content-start">
+                    <div class="form-group">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Digite seu email." title="Por favor, insira um e-mail válido." required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword">Senha</label>
+                        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Senha." required>
+                    </div>
+                    <div class="m-2">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="col-md-6 d-flex align-items-center" >
+
+            <img class="image_01" src="~/logo_001.png" alt="Logo" width="200">
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,49 @@
+﻿@page
+using Microsoft.AspNetCore.Authorization;
+@model CadastroCliente_001.Pages.CadastroModel
+@{
+    <title>Cadastrar Usuário</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <body ng-app="userRegistrationApp" ng-controller="userRegistrationController">
+
+        <div class="container-cadastro">
+            <h2>Cadastrar Usuário</h2>
+            <div class="form-cadastro">
+                <label for="username">Username:</label>
+                <input type="text" id="username" class="form-control" ng-model="user.username" maxlength="200" required>
+            </div>
+            <div class="form-cadastro">
+                <label for="email">Email:</label>
+                <input type="email" id="email" class="form-control" ng-model="user.email" maxlength="200" required>
+            </div>
+            <div class="form-cadastro">
+                <label for="phone">Telefone:</label>
+                <input type="text" id="phone" class="form-control" maxlength="16" ng-model="user.phone" required>
+            </div>
+            <div class="form-cadastro">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" class="form-control" ng-model="user.password" maxlength="30" required>
+            </div>
+            <div class="form-cadastro button-page-cadastro">
+                <button class="btn btn-primary btn-block" ng-click="registerUser()">Cadastrar</button>
+            </div>
+        </div>
+        <a href="/index"><button>Ir para o Início</button></a>
+
+    </body>
+
+    <script>
+        var app = angular.module('userRegistrationApp', []);
+        app.controller('userRegistrationController', function ($scope) {
+            $scope.user = {};
+
+            $scope.registerUser = function () {
+                // Aqui você pode implementar a lógica para registrar o usuário
+                console.log('Usuário registrado:', $scope.user);
+                // Por enquanto, apenas exibimos os dados do usuário no console
+            };
+        });
+    </script>
+}

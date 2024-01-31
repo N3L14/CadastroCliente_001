@@ -1,0 +1,115 @@
+﻿@page
+using System;
+using System.Data.SqlClient;
+@model CadastroCliente_001.Pages.CadastroPessoaFisicaModel
+
+<head>
+    <title>Formulário Pessoa Física</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+
+    <form id="cadastroForm" method="post" action="/SalvarDados">
+        <label>Nome:</label>
+        <input type="text" ng-model="pessoa.Nome" required><br>
+
+        <label>Sobrenome:</label>
+        <input type="text" ng-model="pessoa.Sobrenome" required><br>
+
+        <label>Data de Nascimento:</label>
+        <input type="date" ng-model="pessoa.DataNascimento" required><br>
+
+        <label>Email:</label>
+        <input type="email" ng-model="pessoa.Email" required><br>
+
+        <label>CPF:</label>
+        <input type="text" ng-model="pessoa.CPF" required><br>
+
+        <label>RG:</label>
+        <input type="text" ng-model="pessoa.RG" required><br>
+
+        <div class="address-container" ng-repeat="endereco in pessoa.Enderecos">
+            <label>Endereço {{$index + 1}}:</label><br>
+            <label>Logradouro:</label>
+            <input type="text" ng-model="endereco.Logradouro"><br>
+
+            <label>Número:</label>
+            <input type="text" ng-model="endereco.Numero"><br>
+
+            <label>CEP:</label>
+            <input type="text" ng-model="endereco.CEP"><br>
+
+            <label>Complemento:</label>
+            <input type="text" ng-model="endereco.Complemento"><br>
+
+            <label>Cidade:</label>
+            <input type="text" ng-model="endereco.Cidade"><br>
+
+            <label>Estado:</label>
+            <input type="text" ng-model="endereco.Estado"><br>
+
+            <button type="button" ng-click="removeAddress($index)">Remover Endereço</button>
+        </div>
+
+        <button type="button" ng-click="addAddress()">Adicionar Endereço</button><br><br>
+
+        <div class="contact-container" ng-repeat="contato in pessoa.Contatos">
+            <label>Contato {{$index + 1}}:</label><br>
+            <label>Nome:</label>
+            <input type="text" ng-model="contato.NomeContato"><br>
+
+            <label>Tipo:</label>
+            <input type="text" ng-model="contato.TipoContato"><br>
+
+            <label>Número:</label>
+            <input type="text" ng-model="contato.NumeroContato"><br>
+
+            <button type="button" ng-click="removeContact($index)">Remover Contato</button>
+        </div>
+
+        <button type="button" ng-click="addContact()">Adicionar Contato</button><br><br>
+
+        <input type="submit" value="Enviar">
+    </form>
+
+</body>
+
+<script>
+    var app = angular.module('myApp', []);
+    $scope.submitForm = function () {
+        $http({
+            method: 'POST',
+            url: '/CadastroPessoaFisica/Submit',
+            data: $scope.pessoa
+        }).then(function successCallback(response) {
+            // Tratar a resposta do servidor aqui
+            console.log(response.data);
+        }, function errorCallback(response) {
+            // Tratar erros aqui
+            console.error('Erro ao enviar formulário: ', response.status);
+        });
+    };
+    app.controller('myCtrl', function ($scope) {
+        $scope.pessoa = {
+            Enderecos: [],
+            Contatos: []
+        };
+
+        $scope.addAddress = function () {
+            $scope.pessoa.Enderecos.push({});
+        };
+
+        $scope.removeAddress = function (index) {
+            $scope.pessoa.Enderecos.splice(index, 1);
+        };
+
+        $scope.addContact = function () {
+            $scope.pessoa.Contatos.push({});
+        };
+
+        $scope.removeContact = function (index) {
+            $scope.pessoa.Contatos.splice(index, 1);
+        };
+    });
+</script>
